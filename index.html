@@ -1,377 +1,377 @@
+```html
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flipkart Lite - Product Details & Reviews</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>बूथ मैनेजर - ग्राम पंचायत सहसन (राजस्थान)</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts for Hindi / Devanagari -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            hindi: ['"Mukta"', '"Noto Sans Devanagari"', 'sans-serif'],
+          },
+          colors: {
+            navy: {
+              700: '#1b3270',
+              800: '#152857',
+              900: '#0e1d40'
+            },
+            primaryBlue: '#1e3a8a',
+            highlightYellow: '#fff9e6',
+            successGreen: '#16a34a',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Mukta', 'Noto Sans Devanagari', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+    /* Smooth transitions */
+    .transition-custom {
+      transition: all 0.25s ease-in-out;
+    }
+    /* Hide scrollbars */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
 </head>
-<body class="bg-gray-100 font-sans pb-24">
+<body class="bg-gray-100 text-slate-800 min-h-screen flex justify-center selection:bg-blue-100">
 
-    <!-- Header -->
-    <header class="bg-blue-600 text-white sticky top-0 z-50 shadow-md">
-        <div class="flex items-center justify-between px-3 py-2.5">
-            <div class="flex items-center gap-2">
-                <i id="back-btn" class="fa-solid fa-arrow-left text-base hidden cursor-pointer" onclick="goHome()"></i>
-                <h1 class="text-lg font-bold italic tracking-wide">Flipkart <span class="text-yellow-400 text-xs not-italic font-normal">Lite</span></h1>
-            </div>
-            <div class="flex items-center gap-4 text-lg">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <i class="fa-solid fa-cart-shopping"></i>
-            </div>
-        </div>
+  <!-- Mobile Container Shell -->
+  <div class="w-full max-w-md bg-white min-h-screen shadow-2xl relative flex flex-col pb-24">
+
+    <!-- 1. TOP HEADER / APP BAR -->
+    <header class="bg-[#1e293b] text-white px-4 py-3 flex items-center justify-between sticky top-0 z-30 shadow-md">
+      <div class="flex items-center space-x-3">
+        <button onclick="toggleWardModal()" class="flex items-center space-x-2 text-left">
+          <div class="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center font-bold text-white shadow">
+            स
+          </div>
+          <div class="leading-tight">
+            <h1 class="text-base font-bold tracking-wide flex items-center gap-1.5">
+              <span>बूथ मैनेजर</span>
+              <span class="text-[10px] bg-emerald-500 text-white font-extrabold px-1.5 py-0.2 rounded">100% फ्री</span>
+            </h1>
+            <p class="text-[11px] text-blue-200 font-medium">ग्राम पंचायत सहसन • राजस्थान</p>
+          </div>
+        </button>
+      </div>
+
+      <div class="flex items-center space-x-2 text-gray-300">
+        <button onclick="openAddVoterModal()" class="px-2.5 py-1 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-bold flex items-center gap-1 shadow-sm active:scale-95 transition">
+          <i data-lucide="user-plus" class="w-3.5 h-3.5"></i>
+          <span>+ नया वोटर</span>
+        </button>
+        <button onclick="shareAppSummary()" class="p-1.5 hover:bg-slate-700 rounded-full" title="साझा करें">
+          <i data-lucide="share-2" class="w-4 h-4"></i>
+        </button>
+      </div>
     </header>
 
-    <!-- Home View: Product Grid -->
-    <div id="home-view" class="p-3">
-        <div class="bg-gradient-to-r from-blue-900 via-indigo-800 to-purple-900 rounded-2xl p-4 text-white shadow-md mb-3">
-            <span class="text-[10px] bg-yellow-400 text-black px-2 py-0.5 rounded font-bold uppercase">Big Billion Days</span>
-            <div class="text-xl font-black mt-2">Apple iPhone Mega Store</div>
-            <p class="text-xs text-yellow-300 mt-1 font-semibold">iPhone 11 to 18 Pro Max | Up to 95% OFF</p>
-        </div>
-
-        <h2 class="text-sm font-bold text-gray-800 mb-2">All iPhone Models</h2>
-        <div class="grid grid-cols-2 gap-2" id="product-grid"></div>
+    <!-- 2. SUB-HEADER / 100% FREE ELECTION STATUS STRIP (No Paid/Trial Restrictions) -->
+  <section class="bg-gradient-to-r from-blue-900 via-indigo-900 to-slate-900 text-white border-b border-indigo-700 shadow-inner">
+    <!-- Panchayat Stat Overview Banner -->
+    <div class="px-4 py-2 flex items-center justify-between text-xs font-medium border-b border-white/10">
+      <div class="flex items-center space-x-1.5">
+        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span class="font-bold tracking-wide">पंचायत चुनाव 2026 • ग्राम पंचायत सहसन</span>
+      </div>
+      <div class="text-[11px] bg-emerald-500/20 text-emerald-300 border border-emerald-400/40 px-2 py-0.5 rounded-full font-bold">
+        100% फ्री • सभी 19 वार्ड
+      </div>
     </div>
 
-    <!-- Detail View: Product Details & Gallery -->
-    <div id="detail-view" class="hidden bg-white min-h-screen pb-20">
-        <!-- Main Image -->
-        <div class="relative bg-gray-50 p-4 flex justify-center items-center h-72">
-            <img id="detail-main-img" src="" class="h-64 object-contain transition-all duration-300">
-            <div class="absolute top-2 right-2 bg-white p-1.5 rounded-full shadow text-gray-600"><i class="fa-regular fa-heart"></i></div>
+    <!-- Quick Metrics Ribbon -->
+    <div class="px-4 py-2 flex items-center justify-between text-xs bg-black/20">
+      <div class="flex items-center space-x-1 font-semibold text-slate-200">
+        <span>कुल मतदाता: <strong class="text-white text-sm" id="topVoterCountHeader">5,750</strong></span>
+        <span class="text-slate-400 mx-1">•</span>
+        <span class="text-amber-200 font-bold bg-amber-500/20 px-2 py-0.5 rounded border border-amber-400/30">चिह्न: आवंटन प्रतीक्षित</span>
+      </div>
+      <div class="text-amber-300 font-bold flex items-center gap-1 cursor-pointer bg-white/10 px-2 py-0.5 rounded" onclick="toggleWardModal()">
+        <span id="currentWardLabel">वार्ड: सभी</span>
+        <i data-lucide="chevron-down" class="w-3.5 h-3.5"></i>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. CANDIDATE PROFILE HEADER -->
+  <div class="px-4 pt-3 pb-2 flex items-center justify-between bg-[#fffbf2] border-b border-amber-100">
+    <div>
+      <h2 class="text-xl font-black text-slate-900 tracking-tight flex items-baseline gap-1.5">
+        प्रत्याशी सरपंच
+        <span class="text-[11px] font-bold text-slate-700 bg-amber-100 border border-amber-300 px-2 py-0.5 rounded-full">
+          सहसन (70-कामां • डीग)
+        </span>
+      </h2>
+      <p class="text-[11px] text-slate-600 font-medium">तहसील: पहाड़ी • जिला परिषद क्षेत्र: 6 • पं.स. क्षेत्र: 22</p>
+    </div>
+    <button onclick="openModal('helpModal')" class="px-2.5 py-1 text-xs font-bold text-primaryBlue border border-primaryBlue rounded-full hover:bg-blue-50 flex items-center gap-1 shadow-sm active:scale-95 transition bg-white">
+      <span class="font-bold text-[11px] bg-primaryBlue text-white rounded-full w-4 h-4 inline-flex items-center justify-center">?</span>
+      <span>मार्गदर्शिका</span>
+    </button>
+  </div>
+        <div class="text-[11px] bg-emerald-500/20 text-emerald-300 border border-emerald-400/40 px-2 py-0.5 rounded-full font-bold">
+          कुल 19 वार्ड सक्रिय
         </div>
+      </div>
+
+      <!-- Quick Metrics Ribbon -->
+      <div class="px-4 py-2 flex items-center justify-between text-xs bg-black/20">
+        <div class="flex items-center space-x-1 font-semibold text-slate-200">
+          <span>कुल मतदाता: <strong class="text-white text-sm">5,750</strong></span>
+          <span class="text-slate-400 mx-1">•</span>
+          <span>प्रत्याशी चिह्न: <strong class="text-amber-300">अलमारी 🚪</strong></span>
+        </div>
+        <div class="text-amber-300 font-bold flex items-center gap-1 cursor-pointer" onclick="toggleWardModal()">
+          <span id="currentWardLabel">वार्ड: सभी 19</span>
+          <i data-lucide="chevron-down" class="w-3.5 h-3.5"></i>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. CANDIDATE PROFILE HEADER -->
+    <div class="px-4 pt-3 pb-2 flex items-center justify-between bg-[#fffbf2] border-b border-amber-100">
+      <div>
+        <h2 class="text-2xl font-black text-slate-900 tracking-tight flex items-baseline gap-2">
+          प्रत्याशी
+          <span class="text-xs font-bold text-slate-700 bg-amber-100 border border-amber-300 px-2.5 py-0.5 rounded-full">
+            सरपंच पद हेतु • सहसन
+          </span>
+        </h2>
+      </div>
+      <button onclick="openModal('helpModal')" class="px-3 py-1 text-xs font-bold text-primaryBlue border border-primaryBlue rounded-full hover:bg-blue-50 flex items-center gap-1 shadow-sm active:scale-95 transition bg-white">
+        <span class="font-bold text-[11px] bg-primaryBlue text-white rounded-full w-4 h-4 inline-flex items-center justify-center">?</span>
+        <span>मदद व दिशा-निर्देश</span>
+      </button>
+    </div>
+
+    <!-- MAIN DYNAMIC CONTENT CONTAINER -->
+    <main class="flex-1 px-3.5 py-3 space-y-4">
+
+      <!-- VIEW 1: SEARCH & VOTER LIST (खोजें) -->
+      <div id="tab-search-content" class="space-y-4">
         
-        <!-- Thumbnails (3-4 Photos) -->
-        <div class="flex gap-2 p-3 overflow-x-auto bg-gray-50 border-b" id="detail-thumbs"></div>
+        <!-- ONBOARDING CHECKLIST CARD ("पहले 10 मिनट — 5 काम") -->
+        <div class="bg-white rounded-xl border border-indigo-900/30 shadow-sm overflow-hidden">
+          <div class="p-3.5 pb-2.5 bg-slate-50/70 border-b border-slate-100">
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="font-extrabold text-slate-900 text-[17px] tracking-tight flex items-center gap-1.5">
+                <span>सहसन बूथ तैयारी — 5 काम</span>
+              </h3>
+              <span id="taskProgressBadge" class="text-xs font-bold text-primaryBlue bg-blue-100 px-2.5 py-0.5 rounded-full">
+                2/5
+              </span>
+            </div>
+            <!-- Progress Bar -->
+            <div class="w-full bg-slate-200 h-2.5 rounded-full overflow-hidden">
+              <div id="taskProgressBar" class="bg-emerald-600 h-full rounded-full transition-all duration-500 ease-out" style="width: 40%"></div>
+            </div>
+          </div>
 
-        <!-- Info -->
-        <div class="p-4">
-            <h2 id="detail-title" class="text-sm font-bold text-gray-800 leading-snug"></h2>
+          <!-- Tasks List -->
+          <div class="divide-y divide-gray-100 text-sm">
             
-            <div class="flex items-center gap-2 mt-2">
-                <span class="bg-green-700 text-white text-[10px] px-1.5 py-0.5 rounded font-bold" id="detail-rating">4.8 ★</span>
-                <span class="text-xs text-gray-500" id="detail-reviews"></span>
-                <span class="text-blue-600 font-bold text-xs ml-2">Assured</span>
-            </div>
-
-            <div class="mt-3 flex items-center gap-3">
-                <span class="text-xl font-black text-gray-900" id="detail-price"></span>
-                <span class="text-sm text-gray-400 line-through" id="detail-orig-price"></span>
-                <span class="text-sm text-green-600 font-bold" id="detail-discount"></span>
-            </div>
-
-            <!-- Offers -->
-            <div class="mt-4 border-t pt-3">
-                <h3 class="text-xs font-bold text-gray-800 uppercase mb-1">Available Offers</h3>
-                <div class="text-xs text-gray-600 space-y-1">
-                    <p>🔥 <b class="text-gray-800">Bank Offer:</b> 10% instant discount on SBI Credit Cards</p>
-                    <p>🎁 <b class="text-gray-800">Special Price:</b> Extra ₹5000 off on exchange</p>
+            <!-- Task 1 (Done) -->
+            <div onclick="focusSearchInput()" class="p-3 flex items-center justify-between hover:bg-slate-50 cursor-pointer transition">
+              <div class="flex items-center space-x-3">
+                <div class="w-6 h-6 rounded-full bg-emerald-600 text-white flex items-center justify-center flex-shrink-0 shadow-sm">
+                  <i data-lucide="check" class="w-4 h-4 stroke-[3]"></i>
                 </div>
-            </div>
-
-            <!-- Ratings & Reviews Section -->
-            <div class="mt-5 border-t pt-3">
-                <h3 class="text-xs font-bold text-gray-800 uppercase mb-2">Ratings & Reviews</h3>
-                <div class="bg-gray-50 p-3 rounded-lg space-y-2">
-                    <div class="flex items-center justify-between">
-                        <span class="bg-green-600 text-white text-[10px] px-1 rounded font-bold">5 ★</span>
-                        <span class="text-[10px] text-gray-500">Arjun Singh (Verified Buyer)</span>
-                    </div>
-                    <p class="text-xs text-gray-700">"Ekdam original phone hai bhai, packing aur camera quality zabardast hai. Fast delivery mili!"</p>
+                <div>
+                  <span class="font-bold text-slate-800">किसी मतदाता का नाम खोजिए</span>
+                  <p class="text-[11px] text-slate-500">सहसन के 5,750 मतदाताओं में तुरंत सर्च</p>
                 </div>
+              </div>
+              <span class="text-xs text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded">पूर्ण</span>
             </div>
-        </div>
 
-        <!-- Sticky Buy Now Bar -->
-        <div class="fixed bottom-0 left-0 right-0 bg-white border-t p-3 flex gap-2 shadow-lg z-40">
-            <button onclick="addToCartMsg()" class="w-1/2 bg-white border border-gray-300 text-gray-800 font-bold py-2.5 rounded text-xs">Add to Cart</button>
-            <button onclick="proceedToCheckout()" class="w-1/2 bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2.5 rounded text-xs shadow">Buy Now</button>
-        </div>
-    </div>
-
-    <!-- Step 1: Address Modal -->
-    <div id="address-modal" class="hidden fixed inset-0 bg-black bg-opacity-60 z-50 flex flex-col justify-end">
-        <div class="bg-white rounded-t-2xl p-4 max-h-[90vh] overflow-y-auto">
-            <div class="flex justify-between items-center mb-3 border-b pb-2">
-                <h3 class="text-sm font-bold text-gray-800">Add delivery address</h3>
-                <button onclick="closeModals()" class="text-gray-500 font-bold text-base">✕</button>
-            </div>
-            <form onsubmit="goToSummary(event)" class="space-y-3">
-                <input type="text" placeholder="Full Name" required class="w-full p-2.5 border rounded text-xs">
-                <input type="tel" placeholder="Mobile number" required class="w-full p-2.5 border rounded text-xs">
-                <div class="flex gap-2">
-                    <input type="text" placeholder="Pincode" required class="w-1/2 p-2.5 border rounded text-xs">
-                    <input type="text" placeholder="City" required class="w-1/2 p-2.5 border rounded text-xs">
+            <!-- Task 2 (Done) -->
+            <div onclick="switchTab('lists'); filterByFamilyName('गुर्जर परिवार');" class="p-3 flex items-center justify-between hover:bg-slate-50 cursor-pointer transition">
+              <div class="flex items-center space-x-3">
+                <div class="w-6 h-6 rounded-full bg-emerald-600 text-white flex items-center justify-center flex-shrink-0 shadow-sm">
+                  <i data-lucide="check" class="w-4 h-4 stroke-[3]"></i>
                 </div>
-                <input type="text" placeholder="House No., Building Name" required class="w-full p-2.5 border rounded text-xs">
-                <input type="text" placeholder="Road name, Area, Colony" required class="w-full p-2.5 border rounded text-xs">
-                <button type="submit" class="w-full bg-orange-600 text-white font-bold py-3 rounded text-sm mt-2">PROCEED</button>
-            </form>
+                <div>
+                  <span class="font-bold text-slate-800">सबसे बड़ा परिवार खोलिए</span>
+                  <p class="text-[11px] text-slate-500">गुर्जर परिवार (वार्ड 1) व मीणा परिवार</p>
+                </div>
+              </div>
+              <span class="text-xs text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded">पूर्ण</span>
+            </div>
+
+            <!-- Task 3 (Active Item) -->
+            <div id="task3Container" class="p-3 bg-[#fff9e8] border-l-4 border-amber-500 flex items-center justify-between transition-colors">
+              <div class="flex items-start space-x-3">
+                <div id="task3Icon" class="w-6 h-6 rounded-full border-2 border-slate-700 text-slate-800 font-bold text-xs flex items-center justify-center flex-shrink-0 bg-white mt-0.5">
+                  3
+                </div>
+                <div>
+                  <h4 class="font-bold text-slate-900 text-base leading-snug">
+                    3 लोगों को "अपना" निशान लगाइए
+                  </h4>
+                  <p id="task3StatusText" class="text-xs text-slate-600 font-medium">
+                    1 हो गया • 2 बाकी
+                  </p>
+                </div>
+              </div>
+              <button onclick="triggerQuickTag()" class="bg-primaryBlue hover:bg-blue-800 text-white text-xs font-bold px-3.5 py-1.5 rounded-full shadow active:scale-95 transition flex items-center gap-1">
+                <span id="task3BtnText">करें</span>
+              </button>
+            </div>
+
+            <!-- Task 4 (Pending) -->
+            <div onclick="openVoterSlipModal(voters[0])" class="p-3 flex items-center justify-between hover:bg-slate-50 cursor-pointer transition">
+              <div class="flex items-start space-x-3">
+                <div class="w-6 h-6 rounded-full border border-slate-400 text-slate-600 font-bold text-xs flex items-center justify-center flex-shrink-0 mt-0.5">
+                  4
+                </div>
+                <div>
+                  <h4 class="font-bold text-slate-800 leading-snug">अभ्यास पर्ची WhatsApp पर भेजें</h4>
+                  <p class="text-xs text-slate-500">चुनाव चिह्न व मतदान क्रमांक सहित वोटर पर्ची</p>
+                </div>
+              </div>
+              <i data-lucide="chevron-right" class="w-5 h-5 text-gray-400"></i>
+            </div>
+
+            <!-- Task 5 (Pending) -->
+            <div onclick="openModal('boothInfoModal')" class="p-3 flex items-center justify-between hover:bg-slate-50 cursor-pointer transition">
+              <div class="flex items-start space-x-3">
+                <div class="w-6 h-6 rounded-full border border-slate-400 text-slate-600 font-bold text-xs flex items-center justify-center flex-shrink-0 mt-0.5">
+                  5
+                </div>
+                <div>
+                  <h4 class="font-bold text-slate-800 leading-snug">सहसन मतदान केंद्र विवरण देखें</h4>
+                  <p class="text-xs text-slate-500">रा.उ.मा.वि. सहसन (कमरा नं 1 से 4)</p>
+                </div>
+              </div>
+              <i data-lucide="chevron-right" class="w-5 h-5 text-gray-400"></i>
+            </div>
+
+          </div>
         </div>
-    </div>
 
-    <!-- Step 2: Order Summary Modal -->
-    <div id="summary-modal" class="hidden fixed inset-0 bg-black bg-opacity-60 z-50 flex flex-col justify-end">
-        <div class="bg-white rounded-t-2xl p-4 max-h-[90vh] overflow-y-auto">
-            <div class="flex justify-between items-center mb-3 border-b pb-2">
-                <h3 class="text-sm font-bold text-gray-800">Order Summary</h3>
-                <button onclick="closeModals()" class="text-gray-500 font-bold text-base">✕</button>
-            </div>
-            <div class="bg-gray-50 p-3 rounded-lg mb-3">
-                <div class="text-xs font-bold text-gray-800" id="summary-product-name"></div>
-                <div class="text-sm font-black text-gray-900 mt-1" id="summary-product-price"></div>
-            </div>
-            <button onclick="goToPayment()" class="w-full bg-yellow-400 text-black font-bold py-3 rounded text-sm">Continue to Payment</button>
+        <!-- SEARCH INPUT BOX -->
+        <div class="space-y-1.5">
+          <div class="relative flex items-center">
+            <input 
+              id="voterSearchInput" 
+              type="text" 
+              placeholder="नाम (English या हिंदी), EPIC या h:मकान"
+              oninput="handleSearch(this.value)"
+              class="w-full pl-4 pr-11 py-3 text-base font-bold border-2 border-primaryBlue rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-slate-400 text-slate-900 transition bg-white"
+            />
+            <button onclick="clearSearch()" class="absolute right-3 text-slate-400 hover:text-slate-600 p-1">
+              <i data-lucide="search" class="w-5 h-5 text-primaryBlue"></i>
+            </button>
+          </div>
+          <div class="flex justify-between items-center text-[11px] text-slate-500 px-1">
+            <span>उदा. <b>lallu</b>, <b>darshan</b>, <b>rashid</b>, <b>रामनिवास</b>, <b>TOG...</b> या <b>h:12</b></span>
+            <span class="text-primaryBlue font-bold cursor-pointer" onclick="openWardSelectSheet()">वार्ड बदलें ▾</span>
+          </div>
         </div>
-    </div>
 
-    <!-- Step 3: Payment Modal -->
-    <div id="payment-modal" class="hidden fixed inset-0 bg-black bg-opacity-60 z-50 flex flex-col justify-end">
-        <div class="bg-white rounded-t-2xl p-4 max-h-[90vh] overflow-y-auto">
-            <div class="flex justify-between items-center mb-3 border-b pb-2">
-                <h3 class="text-sm font-bold text-gray-800">Select Payment</h3>
-                <button onclick="closeModals()" class="text-gray-500 font-bold text-base">✕</button>
-            </div>
-            <div class="space-y-2 mb-4">
-                <label class="flex items-center gap-3 p-3 border rounded-xl cursor-pointer bg-blue-50 border-blue-500">
-                    <input type="radio" name="pay" checked class="w-4 h-4">
-                    <span class="text-xs font-bold">PhonePe / Google Pay / Paytm UPI</span>
-                </label>
-            </div>
-            <button onclick="payNow()" class="w-full bg-yellow-400 text-black font-bold py-3 rounded text-sm">Pay Now</button>
+        <!-- FILTER CHIPS -->
+        <div class="flex items-center space-x-2 overflow-x-auto no-scrollbar py-1">
+          <button onclick="filterVoters('all')" id="filter-all" class="filter-chip active-chip px-3 py-1.5 rounded-full text-xs font-bold border transition whitespace-nowrap bg-primaryBlue text-white border-primaryBlue">
+            सभी (<span id="count-all">0</span>)
+          </button>
+          <button onclick="filterVoters('अपना')" id="filter-अपना" class="filter-chip px-3 py-1.5 rounded-full text-xs font-bold border bg-white text-emerald-800 border-emerald-300 hover:bg-emerald-50 transition whitespace-nowrap">
+            🟢 अपना समर्थक (<span id="count-अपना">0</span>)
+          </button>
+          <button onclick="filterVoters('तटस्थ')" id="filter-तटस्थ" class="filter-chip px-3 py-1.5 rounded-full text-xs font-bold border bg-white text-amber-800 border-amber-300 hover:bg-amber-50 transition whitespace-nowrap">
+            🟡 संशय / बात करें (<span id="count-तटस्थ">0</span>)
+          </button>
+          <button onclick="filterVoters('विरोधी')" id="filter-विरोधी" class="filter-chip px-3 py-1.5 rounded-full text-xs font-bold border bg-white text-rose-800 border-rose-300 hover:bg-rose-50 transition whitespace-nowrap">
+            🔴 विपक्ष (<span id="count-विरोधी">0</span>)
+          </button>
+          <button onclick="filterVoters('मतदान_हुआ')" id="filter-मतदान_हुआ" class="filter-chip px-3 py-1.5 rounded-full text-xs font-bold border bg-white text-purple-800 border-purple-300 hover:bg-purple-50 transition whitespace-nowrap">
+            🟣 मतदान संपन्न (<span id="count-मतदान_हुआ">0</span>)
+          </button>
         </div>
-    </div>
 
-    <!-- Script & Inventory Data -->
-    <script>
-        const products = [
-            {
-                id: 1,
-                name: "Apple iPhone 18 Pro Max (1 TB)",
-                price: 9999,
-                origPrice: "₹1,79,900",
-                discount: "94% off",
-                rating: "4.9 ★",
-                reviews: "15,400 Ratings & 1,200 Reviews",
-                images: [
-                    "https://images.unsplash.com/photo-1696446701796-da61225697cc?w=400",
-                    "https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=400",
-                    "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=400",
-                    "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=400"
-                ]
-            },
-            {
-                id: 2,
-                name: "Apple iPhone 17 Pro (512 GB)",
-                price: 8999,
-                origPrice: "₹1,49,900",
-                discount: "93% off",
-                rating: "4.8 ★",
-                reviews: "11,200 Ratings & 980 Reviews",
-                images: [
-                    "https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=400",
-                    "https://images.unsplash.com/photo-1696446701796-da61225697cc?w=400",
-                    "https://images.unsplash.com/photo-1580910051074-3eb694886505?w=400"
-                ]
-            },
-            {
-                id: 3,
-                name: "Apple iPhone 16 Pro Max (256 GB)",
-                price: 7999,
-                origPrice: "₹1,39,900",
-                discount: "92% off",
-                rating: "4.8 ★",
-                reviews: "18,900 Ratings & 2,100 Reviews",
-                images: [
-                    "https://images.unsplash.com/photo-1695048065050-13f572c69d80?w=400",
-                    "https://images.unsplash.com/photo-1696446701796-da61225697cc?w=400",
-                    "https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=400"
-                ]
-            },
-            {
-                id: 4,
-                name: "Apple iPhone 15 Pro Max (256 GB)",
-                price: 6999,
-                origPrice: "₹1,59,900",
-                discount: "93% off",
-                rating: "4.8 ★",
-                reviews: "9,120 Ratings & 850 Reviews",
-                images: [
-                    "https://images.unsplash.com/photo-1696446701796-da61225697cc?w=400",
-                    "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=400",
-                    "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=400"
-                ]
-            },
-            {
-                id: 5,
-                name: "Apple iPhone 15 (Black, 128 GB)",
-                price: 5999,
-                origPrice: "₹79,900",
-                discount: "90% off",
-                rating: "4.6 ★",
-                reviews: "12,450 Ratings & 1,100 Reviews",
-                images: [
-                    "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=400",
-                    "https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=400",
-                    "https://images.unsplash.com/photo-1663499482523-1c0c1ba4ceef?w=400"
-                ]
-            },
-            {
-                id: 6,
-                name: "Apple iPhone 14 (Blue, 128 GB)",
-                price: 4999,
-                origPrice: "₹69,900",
-                discount: "88% off",
-                rating: "4.5 ★",
-                reviews: "18,340 Ratings & 1,900 Reviews",
-                images: [
-                    "https://images.unsplash.com/photo-1663499482523-1c0c1ba4ceef?w=400",
-                    "https://images.unsplash.com/photo-1632661674596-df8be070a5c2?w=400",
-                    "https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=400"
-                ]
-            },
-            {
-                id: 7,
-                name: "Apple iPhone 13 (Starlight, 128 GB)",
-                price: 3999,
-                origPrice: "₹59,900",
-                discount: "89% off",
-                rating: "4.5 ★",
-                reviews: "45,210 Ratings & 4,500 Reviews",
-                images: [
-                    "https://images.unsplash.com/photo-1632661674596-df8be070a5c2?w=400",
-                    "https://images.unsplash.com/photo-1605236453806-6ff36851718e?w=400",
-                    "https://images.unsplash.com/photo-1573148195987-1443e1d3b37e?w=400"
-                ]
-            },
-            {
-                id: 8,
-                name: "Apple iPhone 12 (Black, 64 GB)",
-                price: 2999,
-                origPrice: "₹49,900",
-                discount: "90% off",
-                rating: "4.4 ★",
-                reviews: "32,100 Ratings & 3,200 Reviews",
-                images: [
-                    "https://images.unsplash.com/photo-1605236453806-6ff36851718e?w=400",
-                    "https://images.unsplash.com/photo-1573148195987-1443e1d3b37e?w=400",
-                    "https://images.unsplash.com/photo-1632661674596-df8be070a5c2?w=400"
-                ]
-            },
-            {
-                id: 9,
-                name: "Apple iPhone 11 (White, 64 GB)",
-                price: 1999,
-                origPrice: "₹39,900",
-                discount: "92% off",
-                rating: "4.4 ★",
-                reviews: "54,200 Ratings & 5,800 Reviews",
-                images: [
-                    "https://images.unsplash.com/photo-1573148195987-1443e1d3b37e?w=400",
-                    "https://images.unsplash.com/photo-1605236453806-6ff36851718e?w=400",
-                    "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=400"
-                ]
-            }
-        ];
+        <!-- Mohalla / Area Filter Dropdown Strip -->
+        <div class="flex items-center justify-between text-xs bg-slate-50 border border-slate-200 px-3 py-2 rounded-xl">
+          <span class="text-slate-600 font-bold flex items-center gap-1">
+            <i data-lucide="map-pin" class="w-3.5 h-3.5 text-red-500"></i> मोहल्ला / परिक्षेत्र:
+          </span>
+          <select id="mohallaSelectFilter" onchange="handleMohallaFilter(this.value)" class="text-xs bg-white border border-slate-300 rounded-lg px-2 py-1 font-semibold text-slate-800 focus:outline-none">
+            <option value="all">सभी मोहल्ले / थोक</option>
+          </select>
+        </div>
 
-        let currentProduct = null;
+        <!-- VOTERS LIST SECTION -->
+        <div class="space-y-2">
+          <div class="flex items-center justify-between text-xs text-slate-600 font-bold px-1">
+            <span>मतदाता रिकॉर्ड्स (<span id="voterResultCount" class="text-primaryBlue font-black">0</span>)</span>
+            <button onclick="resetAllFilters()" class="text-blue-600 font-bold hover:underline">सभी फ़िल्टर रीसेट</button>
+          </div>
 
-        // Render Home Grid
-        document.addEventListener("DOMContentLoaded", () => {
-            let grid = document.getElementById("product-grid");
-            let html = "";
-            products.forEach(p => {
-                html += `
-                    <div onclick="openDetail(${p.id})" class="bg-white p-3 rounded-xl shadow-sm flex flex-col justify-between cursor-pointer">
-                        <div>
-                            <img src="${p.images[0]}" class="w-full h-36 object-contain rounded-lg mb-2">
-                            <h3 class="text-xs font-semibold text-gray-800 line-clamp-2">${p.name}</h3>
-                            <div class="flex items-center gap-1 mt-1">
-                                <span class="bg-green-700 text-white text-[10px] px-1 rounded font-bold">${p.rating}</span>
-                                <span class="text-[10px] text-gray-500">(10k+)</span>
-                            </div>
-                        </div>
-                        <div class="mt-3">
-                            <div class="flex items-center gap-2">
-                                <span class="text-xs text-gray-400 line-through">${p.origPrice}</span>
-                                <span class="text-[10px] text-green-600 font-bold">${p.discount}</span>
-                            </div>
-                            <div class="text-sm font-black text-gray-900">₹${p.price}</div>
-                        </div>
-                    </div>
-                `;
-            });
-            grid.innerHTML = html;
-        });
+          <div id="voterCardsList" class="space-y-2">
+            <!-- Dynamic voter cards injected here -->
+          </div>
+        </div>
 
-        function openDetail(id) {
-            currentProduct = products.find(p => p.id === id);
-            document.getElementById("home-view").classList.add("hidden");
-            document.getElementById("detail-view").classList.remove("hidden");
-            document.getElementById("back-btn").classList.remove("hidden");
+      </div>
 
-            document.getElementById("detail-main-img").src = currentProduct.images[0];
-            document.getElementById("detail-title").innerText = currentProduct.name;
-            document.getElementById("detail-price").innerText = "₹" + currentProduct.price;
-            document.getElementById("detail-orig-price").innerText = currentProduct.origPrice;
-            document.getElementById("detail-discount").innerText = currentProduct.discount;
-            document.getElementById("detail-rating").innerText = currentProduct.rating;
-            document.getElementById("detail-reviews").innerText = currentProduct.reviews;
+      <!-- VIEW 2: WARDS & LISTS (वार्ड व सूचियाँ - All 19 Wards) -->
+      <div id="tab-lists-content" class="hidden space-y-4">
+        
+        <!-- Ward Summary Banner -->
+        <div class="bg-gradient-to-r from-slate-900 to-blue-900 text-white p-4 rounded-xl shadow">
+          <div class="flex justify-between items-start">
+            <div>
+              <span class="text-[10px] bg-blue-500/30 text-blue-200 border border-blue-400/40 px-2 py-0.5 rounded-full font-bold uppercase">
+                ग्राम पंचायत सहसन
+              </span>
+              <h3 class="text-lg font-black mt-1">19 वार्ड • कुल 5,750 मतदाता</h3>
+              <p class="text-xs text-blue-200">प्रत्येक वार्ड के अनुसार घर-घर संपर्क सूची</p>
+            </div>
+            <div class="text-right">
+              <span class="text-2xl font-black text-amber-300" id="totalSupporterCountBanner">3,420</span>
+              <p class="text-[10px] text-blue-200">अनुमानित 'अपना' वोट</p>
+            </div>
+          </div>
+        </div>
 
-            // Render Thumbnails
-            let thumbsHtml = "";
-            currentProduct.images.forEach((img, idx) => {
-                thumbsHtml += `<img src="${img}" onclick="changeMainImage('${img}')" class="w-16 h-16 object-contain border-2 rounded-lg cursor-pointer hover:border-blue-600 p-1">`;
-            });
-            document.getElementById("detail-thumbs").innerHTML = thumbsHtml;
-            window.scrollTo(0, 0);
-        }
+        <!-- 19 Wards Grid Accordion -->
+        <div class="space-y-2">
+          <div class="flex justify-between items-center px-1">
+            <h4 class="text-xs font-bold text-slate-600 uppercase tracking-wider">सभी 19 वार्डों की सूची (क्लिक करके खोलें)</h4>
+            <span class="text-[11px] text-primaryBlue font-semibold cursor-pointer" onclick="filterByWard('all')">सभी वार्ड</span>
+          </div>
 
-        function changeMainImage(url) {
-            document.getElementById("detail-main-img").src = url;
-        }
+          <div id="wardsGridList" class="grid grid-cols-1 gap-2">
+            <!-- 19 wards injected via JavaScript -->
+          </div>
+        </div>
 
-        function goHome() {
-            document.getElementById("detail-view").classList.add("hidden");
-            document.getElementById("home-view").classList.remove("hidden");
-            document.getElementById("back-btn").classList.add("hidden");
-        }
-
-        function addToCartMsg() {
-            alert("Product added to cart successfully!");
-        }
-
-        function proceedToCheckout() {
-            document.getElementById("address-modal").classList.remove("hidden");
-        }
-
-        function closeModals() {
-            document.getElementById("address-modal").classList.add("hidden");
-            document.getElementById("summary-modal").classList.add("hidden");
-            document.getElementById("payment-modal").classList.add("hidden");
-        }
-
-        function goToSummary(e) {
-            e.preventDefault();
-            document.getElementById("address-modal").classList.add("hidden");
-            document.getElementById("summary-product-name").innerText = currentProduct.name;
-            document.getElementById("summary-product-price").innerText = "₹" + currentProduct.price;
-            document.getElementById("summary-modal").classList.remove("hidden");
-        }
-
-        function goToPayment() {
-            document.getElementById("summary-modal").classList.add("hidden");
-            document.getElementById("payment-modal").classList.remove("hidden");
-        }
-
-        function payNow() {
-            let upiID = "yourname@paytm"; // Yahan apni UPI ID daal dein
-            let amount = currentProduct.price;
-            let note = encodeURIComponent(currentProduct.name);
-            window.location.href = `upi://pay?pa=${upiID}&pn=Store&am=${amount}&cu=INR&tn=${note}`;
-        }
-    </script>
-</body>
-</html>
+        <!-- Top Influential Families Section -->
+        <div class="space-y-2 pt-2">
+          <h4 class="text-xs font-bold text-slate-600 uppercase tracking-wider">प्रभावशाली परिवार समूह (सहसन)</h4>
+          
+          <div onclick="filterByFamilyName('गुर्जर परिवार')" class="bg-white p-3 rounded-xl border border-gray-200 flex justify-between items-center cursor-pointer hover:border-blue-500 transition">
+            <div>
+              <h5 class="font-bold text-slate-900 text-sm">गुर्जर परिवार • वार्ड नं. 01</h5>
+              <p class="text-xs text-slate-500">मकान नं. 04, 05, 06 • कुल 48 मतदाता (मजबूत समर्थक)</p>
+            </div>
+            <span class="bg-emerald-100 text-emerald-800 text-[11px] font-bold px-2.5 py-1 rounded-ful
